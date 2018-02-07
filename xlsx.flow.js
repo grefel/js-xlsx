@@ -1,4 +1,4 @@
-/* xlsx.js (C) 2013-present SheetJS -- http://sheetjs.com */
+﻿/* xlsx.js (C) 2013-present SheetJS -- http://sheetjs.com */
 /* vim: set ts=2: */
 /*exported XLSX */
 /*global global, exports, module, require:false, process:false, Buffer:false, ArrayBuffer:false */
@@ -9180,7 +9180,7 @@ function make_vba_xls(cfb/*:CFBContainer*/) {
 	var newcfb = CFB.utils.cfb_new({root:"R"});
 	cfb.FullPaths.forEach(function(p, i) {
 		if(p.slice(-1) === "/" || !p.match(/_VBA_PROJECT_CUR/)) return;
-		var newpath = p.replace(/^[^/]*/,"R").replace(/\/_VBA_PROJECT_CUR\u0000*/, "");
+		var newpath = p.replace(/^[^\/]*/,"R").replace(/\/_VBA_PROJECT_CUR\u0000*/, "");
 		CFB.utils.cfb_add(newcfb, newpath, cfb.FileIndex[i].content);
 	});
 	return CFB.write(newcfb);
@@ -9189,7 +9189,7 @@ function make_vba_xls(cfb/*:CFBContainer*/) {
 function fill_vba_xls(cfb/*:CFBContainer*/, vba/*:CFBContainer*/)/*:void*/ {
 	vba.FullPaths.forEach(function(p, i) {
 		if(i == 0) return;
-		var newpath = p.replace(/[^/]*[/]/, "/_VBA_PROJECT_CUR/");
+		var newpath = p.replace(/[^\/]*[\/]/, "/_VBA_PROJECT_CUR/");
 		if(newpath.slice(-1) !== "/") CFB.utils.cfb_add(cfb, newpath, vba.FileIndex[i].content);
 	});
 }
@@ -12154,7 +12154,7 @@ function write_ws_xml_data(ws/*:Worksheet*/, opts, idx/*:number*/, wb/*:Workbook
 			if(_cell === undefined) continue;
 			if((cell = write_ws_xml_cell(_cell, ref, ws, opts, idx, wb)) != null) r.push(cell);
 		}
-		if(r.length > 0 || rows && rows[R]) {
+		if(r.length > 0 || (rows && rows[R])) {
 			params = ({r:rr}/*:any*/);
 			if(rows && rows[R]) {
 				row = rows[R];
